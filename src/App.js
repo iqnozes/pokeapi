@@ -1,23 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/navbar';
+import Searchbar from './components/Searchbar';
+import {searchPokemon} from './api.js';
+
 
 function App() {
+  const onSearchHandler = (pokemon) =>{
+    console.log("Pokemon: ", pokemon)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar />
+      <Searchbar
+       onSearch={onSearchHandler}
+      />
+      <div className="App">
+      
+      </div>
     </div>
   );
 }
