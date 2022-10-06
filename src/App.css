@@ -1,13 +1,12 @@
-*{
+* {
   margin: 0;
-
 }
 
 .App {
   text-align: center;
 }
 
-nav{
+nav {
   height: 100px;
   display: flex;
   flex-direction: row;
@@ -15,31 +14,30 @@ nav{
   align-items: center;
 }
 
-navbar-img{
+navbar-img {
   width: 160px;
 }
 
-
-.searchbar-container{
+.searchbar-container {
   display: flex;
   margin: 0px auto;
   padding: 0 20px;
   align-items: center;
 }
 
-.searchbar{
+.searchbar {
   background-color: white;
   margin-right: 20px;
 }
 
-.searchbar input{
+.searchbar input {
   padding: 10px;
   box-shadow: 0 2px 2px (0, 0, 0, 0.25);
   margin-right: 20px;
   border: none;
 }
 
-.searchbar-btn button{
+.searchbar-btn button {
   background-color: #0e6f9f;
   border: none;
   border-radius: 10px;
@@ -47,4 +45,18 @@ navbar-img{
   color: #feca1b;
   font-style: bold;
   padding: 10px 12px;
+}
+
+.Pokedex-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.pokedex-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, ifr);
 }
