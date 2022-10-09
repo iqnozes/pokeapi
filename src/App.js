@@ -3,39 +3,83 @@ import Navbar from "./components/navbar";
 import Searchbar from "./components/Searchbar";
 import Pokedex from "./components/pokedex";
 import React, { useEffect, useState } from "react";
-import { getPokemons, getPokemonsData } from "./api";
-import Pokemon from "./components/Pokemon";
+import { getPokemons, getPokemonData, searchPokemon } from "./api.js";
+import { FavoriteProvider } from "./contexts/favoritesContext";
 
+const favoritesKey = "f";
 function App() {
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
   const [pokemons, setPokemons] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
+  const itensPerPage = 30;
   const fetchPokemons = async () => {
     try {
       setLoading(true);
-      const data = await getPokemons();
+      setNotFound(false);
+      const data = await getPokemons(itensPerPage, itensPerPage * page);
       const promises = data.results.map(async (pokemon) => {
-        return await getPokemonsData(pokemon.url);
+        return await getPokemonData(pokemon.url);
       });
+
       const results = await Promise.all(promises);
       setPokemons(results);
       setLoading(false);
+      setTotalPages(Math.ceil(data.count / itensPerPage));
     } catch (error) {
       console.log("fetchPokemons error: ", error);
     }
   };
 
+  const loadFavoritePokemons = () => {
+    const pokemons =
+      JSON.parse(window.localStorage.getItem(favoritesKey)) || [];
+    setFavorites(pokemons);
+  };
+
   useEffect(() => {
-    console.log("carregou");
     fetchPokemons();
+  }, [page]);
+
+  useEffect(() => {
+    loadFavoritePokemons();
   }, []);
 
+  const updateFavoritePokemons = (name) => {
+    const updatedFavorites = [...favorites];
+    const favoriteIndex = favorites.indexOf(name);
+    if (favoriteIndex >= 0) {
+      updatedFavorites.splice(favoriteIndex, 1);
+    } else {
+      updatedFavorites.push(name);
+    }
+    window.localStorage.setItem(favoritesKey, JSON.stringify(updatedFavorites));
+
+    setFavorites(updatedFavorites);
+  };
+
   return (
-    <div>
-      <Navbar />
-      <Searchbar />
-      <Pokedex pokemons={pokemons} loading={loading} />
-    </div>
+    <FavoriteProvider
+      value={{
+        favoritePokemons: favorites,
+        updateFavoritePokemons: updateFavoritePokemons,
+      }}
+    >
+      <div>
+        <Navbar />
+        <Searchbar />
+        <Pokedex
+          pokemons={pokemons}
+          loading={loading}
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+        />
+      </div>
+    </FavoriteProvider>
   );
 }
 
