@@ -48,6 +48,25 @@ function App() {
     loadFavoritePokemons();
   }, []);
 
+  const onSearchHandler = async (pokemon) => {
+    if(!pokemon) {
+      return fetchPokemons();
+    }
+
+    setLoading(true)
+    setNotFound(false)
+    const result = await searchPokemon(pokemon)
+    if(!result) {
+      setNotFound(true)
+    } else {
+      setPokemons([result])
+      setPage(0)
+      setTotalPages(1)
+    }
+    setLoading(false)
+
+  }
+
   const updateFavoritePokemons = (name) => {
     const updatedFavorites = [...favorites];
     const favoriteIndex = favorites.indexOf(name);
@@ -70,7 +89,9 @@ function App() {
     >
       <div>
         <Navbar />
-        <Searchbar />
+        <Searchbar 
+          onSearch={onSearchHandler}
+        />
         <Pokedex
           pokemons={pokemons}
           loading={loading}
