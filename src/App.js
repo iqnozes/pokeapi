@@ -49,23 +49,22 @@ function App() {
   }, []);
 
   const onSearchHandler = async (pokemon) => {
-    if(!pokemon) {
+    if (!pokemon) {
       return fetchPokemons();
     }
 
-    setLoading(true)
-    setNotFound(false)
-    const result = await searchPokemon(pokemon)
-    if(!result) {
-      setNotFound(true)
+    setLoading(true);
+    setNotFound(false);
+    const result = await searchPokemon(pokemon);
+    if (!result) {
+      setNotFound(true);
     } else {
-      setPokemons([result])
-      setPage(0)
-      setTotalPages(1)
+      setPokemons([result]);
+      setPage(0);
+      setTotalPages(1);
     }
-    setLoading(false)
-
-  }
+    setLoading(false);
+  };
 
   const updateFavoritePokemons = (name) => {
     const updatedFavorites = [...favorites];
@@ -89,16 +88,18 @@ function App() {
     >
       <div>
         <Navbar />
-        <Searchbar 
-          onSearch={onSearchHandler}
-        />
-        <Pokedex
-          pokemons={pokemons}
-          loading={loading}
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-        />
+        <Searchbar onSearch={onSearchHandler} />
+        {notFound ? (
+          <div className="not-found-text"> Pokemon Ainda não Descoberto!</div>
+        ) : (
+          <Pokedex
+            pokemons={pokemons}
+            loading={loading}
+            page={page}
+            setPage={setPage}
+            totalPages={totalPages}
+          />
+        )}
       </div>
     </FavoriteProvider>
   );
