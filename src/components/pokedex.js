@@ -2,12 +2,6 @@ import React from "react";
 import Pagination from "./Pagination";
 import Pokemon from "./Pokemon";
 
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css"
-></link>;
-
 const Pokedex = (props) => {
   const { pokemons, loading, page, setPage, totalPages } = props;
   console.log("pokemons: ", pokemons);
@@ -34,7 +28,9 @@ const Pokedex = (props) => {
         />
       </div>
       {loading ? (
-        <div>Caçando Pokemons Selvagens...</div>
+        <div className="Pokedex-gif-loading">
+          <img src="https://2img.net/h/33.media.tumblr.com/c57c1324660338150c0a968fc90f99de/tumblr_nu4n8oxf6b1r7tm2fo1_250.gif" />
+        </div>
       ) : (
         <div className="pokedex-grid">
           {pokemons &&

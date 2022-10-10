@@ -14,8 +14,30 @@ function App() {
   const [notFound, setNotFound] = useState(false);
   const [pokemons, setPokemons] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [dataArr, setDataArr] = useState([]);
+  const [search, setSearch] = useState("");
 
   const itensPerPage = 30;
+  const itensData = 905;
+
+  const pokeArr = async () => {
+    try {
+      setLoading(true);
+      setNotFound(false);
+      const data = await getPokemons(itensData);
+      const promises = data.results.map(async (pokedata) => {
+        return await getPokemonData(pokedata.url);
+      });
+
+      const results = await Promise.all(promises);
+      setDataArr(results);
+      setLoading(false);
+      setTotalPages(Math.ceil(data.count / itensData));
+    } catch (error) {
+      console.log("fetchPokemons error: ", error);
+    }
+  };
+
   const fetchPokemons = async () => {
     try {
       setLoading(true);
@@ -34,6 +56,10 @@ function App() {
     }
   };
 
+  const capsuleValue = (value) => {
+    setSearch(value);
+  };
+
   const loadFavoritePokemons = () => {
     const pokemons =
       JSON.parse(window.localStorage.getItem(favoritesKey)) || [];
@@ -45,9 +71,18 @@ function App() {
   }, [page]);
 
   useEffect(() => {
+    pokeArr();
+  }, [page]);
+
+  useEffect(() => {
     loadFavoritePokemons();
   }, []);
 
+  const onSearchHandler = async (pokedata) => {
+    const newPokes = dataArr.filter((x) => x.includes(search));
+    console.log(newPokes);
+  };
+  /*
   const onSearchHandler = async (pokemon) => {
     if (!pokemon) {
       return fetchPokemons();
@@ -65,6 +100,8 @@ function App() {
     }
     setLoading(false);
   };
+
+  */
 
   const updateFavoritePokemons = (name) => {
     const updatedFavorites = [...favorites];
@@ -88,7 +125,11 @@ function App() {
     >
       <div>
         <Navbar />
-        <Searchbar onSearch={onSearchHandler} />
+        <Searchbar
+          onSearch={onSearchHandler}
+          capsuleValue={capsuleValue}
+          search={search}
+        />
         {notFound ? (
           <div className="not-found-text"> Pokemon Ainda não Descoberto!</div>
         ) : (

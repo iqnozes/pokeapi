@@ -10,10 +10,10 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div>
+      <div className="Nav-img">
         <img alt="pokeapi-logo" src={logoimg} className="navbar-img" />
       </div>
-      <div>{favoritePokemons.length} ❤️</div>
+      <div className="Fav-pokemon">{favoritePokemons.length} ❤️</div>
     </nav>
   );
 };

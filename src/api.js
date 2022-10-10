@@ -25,3 +25,5 @@ export const getPokemonData = async (url) => {
     console.log("error: ", error);
   }
 };
+
+export const pkRandom = Math.floor(Math.random() * 905);
