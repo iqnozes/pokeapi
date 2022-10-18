@@ -7,13 +7,13 @@ import {
 } from "../api.js";
 
 const Searchbar = (props) => {
-  const { onSearch, capsuleValue, search } = props;
-  /*const onChangeHandler = (e) => {
+  const { onSearch, capsuleValue, search, setSearch } = props;
+  const onChangeHandler = (e) => {
     setSearch(e.target.value);
     if (e.target.value.length === 0) {
       onSearch(Math.floor(Math.random() * 905));
     }
-  };*/
+  };
 
   const onButtonClickHandler = () => {
     if (search === "") {

@@ -22,7 +22,6 @@ function App() {
 
   const pokeArr = async () => {
     try {
-      setLoading(true);
       setNotFound(false);
       const data = await getPokemons(itensData);
       const promises = data.results.map(async (pokedata) => {
@@ -31,8 +30,6 @@ function App() {
 
       const results = await Promise.all(promises);
       setDataArr(results);
-      setLoading(false);
-      setTotalPages(Math.ceil(data.count / itensData));
     } catch (error) {
       console.log("fetchPokemons error: ", error);
     }
@@ -68,9 +65,6 @@ function App() {
 
   useEffect(() => {
     fetchPokemons();
-  }, [page]);
-
-  useEffect(() => {
     pokeArr();
   }, [page]);
 
@@ -78,11 +72,12 @@ function App() {
     loadFavoritePokemons();
   }, []);
 
+  /*
   const onSearchHandler = async (pokedata) => {
     const newPokes = dataArr.filter((x) => x.includes(search));
     console.log(newPokes);
   };
-  /*
+    */
   const onSearchHandler = async (pokemon) => {
     if (!pokemon) {
       return fetchPokemons();
@@ -100,8 +95,6 @@ function App() {
     }
     setLoading(false);
   };
-
-  */
 
   const updateFavoritePokemons = (name) => {
     const updatedFavorites = [...favorites];

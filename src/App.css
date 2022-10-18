@@ -6,9 +6,9 @@
   text-align: center;
 }
 
-/* body {
-  background-image: url(https://fisoloji.com/wp-content/uploads/2020/08/pokemon-wallpaper-23-576x1024.jpg);
-} */
+body {
+  background: #0c3348;
+}
 
 nav {
   height: 100px;
@@ -33,6 +33,7 @@ navbar-img {
   display: flex;
   flex-direction: flex;
   align-items: flex-end;
+  color: #d5a100;
 }
 
 .searchbar-container {
@@ -51,9 +52,9 @@ navbar-img {
 .searchbar input {
   padding: 10px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-  background-color: #1b82b1;
+  background-color: #0075be;
   margin-right: 20px;
-  color: #e6bc2f;
+  color: #d5a100;
   font-style: bold;
   font-size: larger;
   border: none;
@@ -61,11 +62,11 @@ navbar-img {
 }
 
 .searchbar-btn button {
-  background-color: #1b82b1;
+  background-color: #0075be;
   border: none;
   border-radius: 10px;
   height: 44px;
-  color: #e6bc2f;
+  color: #d5a100;
   font-style: bold;
   font-size: larger;
   padding: 10px 12px;
@@ -81,7 +82,7 @@ navbar-img {
 
 .Pokedex-header h1 {
   text-align: center;
-  justify-content: space-around;
+  color: #d5a100;
   display: flex;
 }
 
@@ -99,18 +100,15 @@ navbar-img {
 
 .pokemon-card {
   display: flex;
-  background-color: #041f2c;
-  box-shadow: 4px 4px 4px rgba(255, 0, 0, 0.452);
+  background-color: #0075be;
+  box-shadow: 4px 4px 4px rgba(213, 161, 0, 0.452);
   border-radius: 3px;
-  -webkit-transition: all 150ms ease-in-out;
+  transition: 0.6s ease-in-out;
 }
 
 .pokemon-card:hover {
-  background-color: #5a0000;
-  box-shadow: 4px 4px 4px rgba(13, 214, 64, 0.452);
-  -moz-transform: scale(1.001);
-  -webkit-transform: scale(1.001);
-  transform: scale(1.001);
+  background-color: #0a285f;
+  box-shadow: 10px 10px 10px rgba(251, 27, 27, 0.452);
 }
 
 .pokemon-image {
@@ -140,12 +138,12 @@ navbar-img {
 
 .card-top h3 {
   text-transform: capitalize;
-  color: #e6bc2f;
+  color: #d5a100;
 }
 
 .card-id {
   text-transform: capitalize;
-  color: #e6bc2f;
+  color: #d5a100;
 }
 
 .card-bottom {
@@ -162,7 +160,7 @@ navbar-img {
 .pokemon-type-text {
   margin-right: 10px;
   text-transform: capitalize;
-  color: #1b82b1;
+  color: #dfdfdf;
 }
 
 .pokemon-type {
@@ -176,10 +174,15 @@ navbar-img {
   cursor: pointer;
   align-items: center;
 }
-.pagination-container button {
-  border: none;
-  background-color: rgba(0, 0, 0, 0);
 
+.pagination-container {
+  display: flex;
+  color: #d5a100;
+}
+
+.pagination-container button {
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: 4px 4px 4px;
   padding: 4px;
   cursor: pointer;
   align-items: center;
@@ -189,4 +192,32 @@ navbar-img {
   text-align: center;
   font-size: 1.25rem;
   padding: 20px;
+}
+
+.spinner {
+  /* size */
+  height: 4rem;
+  width: 4rem;
+
+  /* curve at the top */
+
+  border: 4px solid #d1d5db;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+
+  animation: spinner 800ms linear infinite;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
